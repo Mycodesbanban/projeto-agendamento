@@ -16,10 +16,7 @@ const agendamentoControll = {
                 })
     
             }
-            const [hora, minuto] = horario.split(":").map(Number)
-
-            const dataHoraAgendamento = new Date(data)
-            dataHoraAgendamento.setHours(hora, minuto, 0, 0)
+            const dataHoraAgendamento = new Date(`${data}T${horario}:00`)
             const agora = Date.now()
             const agendamentoTime = dataHoraAgendamento.getTime()
 
@@ -33,7 +30,7 @@ const agendamentoControll = {
             if(horas >= 19 || horas < 8){
                 return res.status(401).json("nao e possivel agendar antes do horario")
             }
-
+            
 
             const horarioExist = await Agenda.findOne({ horario: dataHoraAgendamento })
             

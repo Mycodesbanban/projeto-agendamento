@@ -26,10 +26,16 @@ const agendamentoModel = new Schema({
     status:{
         type:String,
         enum:["ativo", "cancelado"],
-        defalut:"ativo"
+        default:"ativo"
     }
 },
 {timestamps:true}
+)
+agendamentoModel.index(
+    {
+        horario:1
+    },
+    {unique:true}
 )
 const Agenda = mongoose.model("Agenda", agendamentoModel)
 
