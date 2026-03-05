@@ -19,6 +19,11 @@ const usuarioModel = new Schema({
         required:true,
         trim:true
     },
+    role:{
+        type:String,
+        enum:["admin", "cliente"],
+        default:"cliente"
+    }
 },
 {timestamps:true}
 )

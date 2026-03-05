@@ -25,8 +25,8 @@ const agendamentoModel = new Schema({
     },
     status:{
         type:String,
-        enum:["ativo", "cancelado"],
-        default:"ativo"
+        enum:["ativo", "cancelado","pendente"],
+        default:"pendente"
     }
 },
 {timestamps:true}

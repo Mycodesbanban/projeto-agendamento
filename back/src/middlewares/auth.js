@@ -20,6 +20,7 @@ module.exports = function authMiddleware(req, res , next){
         next()
         console.log(req.headers)
 
+
     }
     
     catch(error){
@@ -27,5 +28,6 @@ module.exports = function authMiddleware(req, res , next){
             error:"token invalido"
         })
     }
+    
 
 }

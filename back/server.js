@@ -7,6 +7,7 @@ const createUser = require("./src/routes/CreateUser")
 const LoginUser = require("./src/routes/Login")
 const agendamentoRotas = require("./src/routes/Agendamento")
 
+
 app.use(express.json())
 connectDB()
 
