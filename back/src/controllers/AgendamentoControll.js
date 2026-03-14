@@ -39,12 +39,7 @@ const agendamentoControll = {
                     error:"so e possivel agendar com 30 dias de antecendia"
                 })
             }
-            
-            if(horarioExist){
-                return res.status(400).json({
-                    error:"ja existe um horario marcado"
-                })
-            }  
+             
             
         await Agenda.create({
         userId,
@@ -141,7 +136,7 @@ const agendamentoControll = {
     async disponiveis (req, res ){
         try{
             const { data } =req.query
-            const horarioDisponivel=["08:00", "09:00", "10:00", "11:00", "12:00", "13:00","14:00", "15:00","16:00","17:00"]
+            const horarioDisponivel=["08:00", "09:00", "10:00", "11:00", "12:00", "13:00","14:00", "15:00","16:00","17:00","18:00"]
             if(!data ){
                 return res.status(400).json({
                     error:"error"
@@ -187,7 +182,7 @@ const agendamentoControll = {
     async AceitarAgendamentos (req, res){
         try {
             const {id} = req.params
-            const agendamento = Agenda.findById(id)
+            const agendamento = await Agenda.findById(id)
             if(!agendamento){
                 return res.status(404).json({
                     error:"nao foi localizado nenhum agendamento"
@@ -217,7 +212,7 @@ const agendamentoControll = {
         try {
             
             const {id} = req.params
-            const agendamento = Agenda.findById(id)
+            const agendamento = await Agenda.findById(id)
             if(agendamento.status !=="pendente"){
                     return res.status(400).json({
                         error:"esse agendamento ja foi processado"

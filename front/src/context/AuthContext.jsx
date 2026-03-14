@@ -1,5 +1,5 @@
 
-import { createContext, useState, useContext, useEffect, ReactNode } from 'react'
+import { createContext, useState,  useEffect } from 'react'
 import axios from "axios"
 export  const AuthContext = createContext()
 
@@ -11,6 +11,34 @@ export const AuthContextProvider = ({children}) =>{
     const [loading, setLoading] = useState(true)
     const login = async (email, password) =>{
         const response = await axios.post("http://localhost:3000/login" , {
+            email,
+            password
+        })
+        const receivedToken = response.data.token
+        localStorage.setItem("token", receivedToken)
+        setToken(receivedToken)
+        await fetchUser(receivedToken)
+    }
+    const agenda = async(data,horario, servico)=> {
+        if(!token){
+    throw new Error("Usuário não autenticado")
+  }
+      const response=  await axios.post("http://localhost:3000/agenda",{
+        data,
+        horario,
+        servico
+      },{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+      })
+      return response.data
+      
+    }
+
+    const register = async (nome,email, password) =>{
+        const response = await axios.post("http://localhost:3000/register" , {
+            nome,
             email,
             password
         })
@@ -46,7 +74,7 @@ export const AuthContextProvider = ({children}) =>{
         }
     },[token])
     return(
-    <AuthContext.Provider value={{user, token, login, logout, loading}}>
+    <AuthContext.Provider value={{user, token, login,register, logout, loading, agenda}}>
         {!loading && children}
     </AuthContext.Provider>
     )
