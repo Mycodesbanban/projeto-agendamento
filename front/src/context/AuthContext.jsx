@@ -26,6 +26,13 @@ export const AuthContextProvider = ({children}) =>{
         return response.data 
         
     }
+     const admin = async ()=>{
+        const response = axios.get("http://localhost:3000/agenda/admin",{ headers:{
+            Authorization:`Bearer ${token}`
+        }})
+        return response.data 
+        
+    }
     const agenda = async(data,horario, servico)=> {
         if(!token){
     throw new Error("Usuário não autenticado")
@@ -81,7 +88,7 @@ export const AuthContextProvider = ({children}) =>{
         }
     },[token])
     return(
-    <AuthContext.Provider value={{user, token, login,register, logout, loading, agenda, meusAgendamentos}}>
+    <AuthContext.Provider value={{user, token, login,register, logout, loading, agenda, meusAgendamentos, admin}}>
         {!loading && children}
     </AuthContext.Provider>
     )

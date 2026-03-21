@@ -81,6 +81,17 @@ const agendamentoControll = {
             })
         }
     },
+    async admin(req, res){
+        try{
+            const agendamentos= await Agenda.find()
+            return res.status(200).json(agendamentos)
+
+        }catch(error){
+            res.status(500).json({
+                error:"erro no listamento"
+            })
+        }
+    },
     async cancelarHorario(req, res) {
         try{
 
